@@ -1,0 +1,59 @@
+def setup_database(db):
+    query = QSqlQuery(db)
+
+    query.exec("""CREATE TABLE barang (
+        id_barang INTEGER PRIMARY KEY AUTOINCREMENT,
+        nama_barang VARCHAR(100) NOT NULL,
+        harga INTEGER NOT NULL,
+        satuan VARCHAR(20) NOT NULL,
+        stok INTEGER NOT NULL DEFAULT 0)""")
+
+    query.exec("""INSERT INTO barang (nama_barang, harga, satuan, stok) VALUES
+        ('Indomie', 3500, 'bungkus', 200),
+        ('Teh Botol', 5000, 'botol', 100),
+        ('Beras 5kg', 70000, 'karung', 40),
+        ('Chitato', 11000, 'bungkus', 75),
+        ('Sabun', 4500, 'pcs', 80),
+        ('Roti Tawar', 15000, 'bungkus', 25),
+        ('Aqua 600ml', 3000, 'botol', 150),
+        ('Minyak Goreng 1L', 18000, 'botol', 60),
+        ('Gula Pasir 1kg', 16000, 'kg', 50),
+        ('Kopi Sachet', 1500, 'sachet', 300)""")
+
+    query.exec("""CREATE TABLE penjaga (
+        id_penjaga INTEGER PRIMARY KEY AUTOINCREMENT,
+        nama VARCHAR(100) NOT NULL,
+        no_telp VARCHAR(20),
+        shift VARCHAR(20))""")
+
+    query.exec("""INSERT INTO penjaga (nama, no_telp, shift) VALUES
+        ('Siti Aminah',    '081234500001', 'Pagi'),
+        ('Budi Santoso',   '081234500002', 'Siang'),
+        ('Rina Wulandari', '081234500003', 'Pagi'),
+        ('Agus Salim',     '081234500004', 'Malam'),
+        ('Dewi Lestari',   '081234500005', 'Siang')""")
+
+    query.exec("""CREATE TABLE transaksi (
+        id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_barang INTEGER NOT NULL,
+        id_penjaga INTEGER NOT NULL,
+        no_nota VARCHAR(20),
+        tanggal DATE NOT NULL,
+        qty INTEGER NOT NULL,
+        total_harga INTEGER NOT NULL,
+        FOREIGN KEY (id_barang) REFERENCES barang(id_barang),
+        FOREIGN KEY (id_penjaga) REFERENCES penjaga(id_penjaga))""")
+
+    query.exec("""INSERT INTO transaksi
+        (id_barang, id_penjaga, no_nota, tanggal, qty, total_harga) VALUES
+        (1, 1, 'N001', '2026-11-18', 10, 35000),
+        (2, 1, 'N001', '2026-11-18', 2, 10000),
+        (3, 2, 'N002', '2026-11-18', 1, 70000),
+        (4, 2, 'N003', '2026-11-19', 3, 33000),
+        (7, 3, 'N004', '2026-11-19', 4, 12000),
+        (10, 4, 'N005', '2026-11-20', 10, 15000),
+        (8, 5, 'N006', '2026-11-20', 2, 36000),
+        (9, 5, 'N006', '2026-11-20', 1, 16000)""")
+
+if not os.path.exists(DB_PATH):
+    setup_database(db)

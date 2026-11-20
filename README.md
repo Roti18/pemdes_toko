@@ -1,4 +1,17 @@
-# Pemrograman Desktop - Toko Kelontong
+# Sistem Manajemen Toko Kelontong
+Aplikasi Desktop Pengelolaan Toko Kelontong Berbasis Python & PyQt6 (UAS Pemrograman Desktop).
+
+---
+
+## Pembagian Tugas
+
+| No | Anggota | Tugas / Modul |
+| :---: | :--- | :--- |
+| 1 | Sifa | Kasir |
+| 2 | Rendi | Barang |
+| 3 | Roni | Transaksi |
+
+---
 
 ## Cara Menjalankan
 
@@ -8,12 +21,15 @@ pip install -r requirements.txt
 python code.py
 ```
 
+---
+
 ## Entity Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
   BARANG ||--o{ TRANSAKSI : terjual_dalam
   PENJAGA ||--o{ TRANSAKSI : melayani
+
   BARANG {
     int id_barang PK
     varchar nama_barang
@@ -37,8 +53,3 @@ erDiagram
     int total_harga
   }
 ```
-
-Tugas:
-Sifa -> Kasir
-Rendi -> Barang
-Roni -> Transaksi
