@@ -37,3 +37,8 @@ erDiagram
     int total_harga
   }
 ```
+
+Tugas:
+Sifa -> Kasir
+Rendi -> Barang
+Roni -> Transaksi
