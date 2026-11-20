@@ -46,11 +46,11 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Sistem Toko Kelontong")
         self.setMinimumSize(QSize(800, 500))
 
-        # Table View & Model fetch DB sesuai materi kuliah
+        # Table View & Model fetch DB sesuai materi perkuliahan
         self.table = QTableView()
         self.model = QSqlTableModel(self, db=db)
         self.model.setTable("barang")
-        self.model.select()
+        self.model.select()  # Fetch data dari database
 
         # Header kolom
         self.model.setHeaderData(0, Qt.Orientation.Horizontal, "ID")
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     if not db.open():
         raise RuntimeError(f"Gagal membuka database: {db.lastError().text()}")
 
-    # Jika file database baru pertama kali dibuat, inisialisasi tabel & datanya
+    # Jika file toko.db baru pertama kali dibuat, inisialisasi tabel & datanya
     if db_is_new:
         setup_database(db)
 
